@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  dcrd:
+    image: 'crypdex/decred:1.4-x86_64'
+    volumes:
+      - /Volumes/T5/data/decred/dcrd:/home/decred/.dcrd
+      - /Volumes/T5/data/decred/dcrwallet:/home/decred/.dcrwallet
+
+  dcrwallet:
+    image: 'crypdex/decred:1.4-x86_64'
+    volumes:
+      - /Volumes/T5/data/decred/dcrd:/home/decred/.dcrd
+      - /Volumes/T5/data/decred/dcrwallet:/home/decred/.dcrwallet
+    command: dcrwallet --noinitialload --username=alice --password=bob
+

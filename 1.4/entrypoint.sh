@@ -2,12 +2,13 @@
 set -e
 
 user=decred
-datadir="/home/${user}/.${user}"
+# This is the default data dir
+datadir="/home/${user}/.dcrd"
 
 if [[ $(echo "$1" | cut -c1) = "-" ]]; then
   echo "$0: assuming arguments for dcrd"
 
-  set -- decred "$@"
+  set -- dcrd "$@"
 fi
 
 if [[ $(echo "$1" | cut -c1) = "-" ]] || [[ "$1" = "dcrd" ]]; then
