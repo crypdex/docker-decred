@@ -1,18 +1,12 @@
-VERSION?=
+VERSION?=1.4
 
-run: build
-	docker-compose up
+release:
+	@cd ${VERSION} && bash ./release.sh
 
-build:
-	@bash ./scripts/build.sh
+wallet:
+	docker run -it -v ${WALLET_DIR}:/home/decred/.dcrwallet crypdex/decred:1.4 dcrwallet --create
 
-release: require-version
-	@bash ./scripts/release.sh
-
-require-version:
-ifndef VERSION
-	$(error 'VERSION' is undefined)
-else
-	@echo "configured for ${VERSION}"
-endif
-
+require-data:
+	ifndef WALLET_DIR
+	$(error WALLET_DIR is not set)
+	endif

@@ -23,15 +23,15 @@ for arch in ${ARCH}; do
   echo "=> Building Decred {arch: ${arch}, image: ${IMAGE}, decred-arch: ${DECRED_ARCH}}"
 
 
-  docker build -f ${VERSION}/Dockerfile -t ${ORG}/${SERVICE}:${VERSION}-${arch} --build-arg DECRED_ARCH=${DECRED_ARCH} --build-arg IMAGE=${IMAGE} ${VERSION}/.
-#  docker push ${ORG}/${SERVICE}:${VERSION}-${arch}
+  docker build -f Dockerfile -t ${ORG}/${SERVICE}:${VERSION}-${arch} --build-arg DECRED_ARCH=${DECRED_ARCH} --build-arg IMAGE=${IMAGE} .
+  docker push ${ORG}/${SERVICE}:${VERSION}-${arch}
 done
 
-#
-## Now create a manifest that points from latest to the specific architecture
-#rm -rf ~/.docker/manifests/*
-#
-## version
-#docker manifest create ${ORG}/${SERVICE}:${VERSION} ${ORG}/${SERVICE}:${VERSION}-x86_64 ${ORG}/${SERVICE}:${VERSION}-arm64v8
-#docker manifest push ${ORG}/${SERVICE}:${VERSION}
+
+# Now create a manifest that points from latest to the specific architecture
+rm -rf ~/.docker/manifests/*
+
+# version
+docker manifest create ${ORG}/${SERVICE}:${VERSION} ${ORG}/${SERVICE}:${VERSION}-x86_64 ${ORG}/${SERVICE}:${VERSION}-arm64v8
+docker manifest push ${ORG}/${SERVICE}:${VERSION}
 

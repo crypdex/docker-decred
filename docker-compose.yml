@@ -2,15 +2,33 @@ version: '3.7'
 
 services:
   dcrd:
-    image: 'crypdex/decred:1.4-x86_64'
+    image: crypdex/decred:1.4
+    restart: on-failure
+    container_name: dcrd
     volumes:
       - /Volumes/T5/data/decred/dcrd:/home/decred/.dcrd
       - /Volumes/T5/data/decred/dcrwallet:/home/decred/.dcrwallet
+    command: dcrd
+      --rpcuser=alice
+      --rpcpass=bob
+      --rpclisten=0.0.0.0
+      --rpccert=/home/decred/.dcrd/dcrd.cert
+      --rpckey=/home/decred/.dcrd/dcrd.key
 
   dcrwallet:
     image: 'crypdex/decred:1.4-x86_64'
+    restart: on-failure
+    container_name: dcrwallet
     volumes:
       - /Volumes/T5/data/decred/dcrd:/home/decred/.dcrd
       - /Volumes/T5/data/decred/dcrwallet:/home/decred/.dcrwallet
-    command: dcrwallet --noinitialload --username=alice --password=bob
-
+    # --pass= should be set in the .conf file!
+    command: dcrwallet
+      --username=alice
+      --password=bob
+      --rpclisten=0.0.0.0
+      --rpcconnect=dcrd:9109
+      --rpccert=/home/decred/.dcrwallet/dcrw.cert
+      --rpckey=/home/decred/.dcrwallet/dcrw.key
+      --cafile=/home/decred/.dcrd/dcrd.cert
+      --pass=${WALLET_PASSWORD}
