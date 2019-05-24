@@ -35,3 +35,7 @@ rm -rf ~/.docker/manifests/*
 docker manifest create ${ORG}/${SERVICE}:${VERSION} ${ORG}/${SERVICE}:${VERSION}-x86_64 ${ORG}/${SERVICE}:${VERSION}-arm64v8
 docker manifest push ${ORG}/${SERVICE}:${VERSION}
 
+# latest?
+docker manifest create ${ORG}/${SERVICE}:latest ${ORG}/${SERVICE}:${VERSION}-x86_64 ${ORG}/${SERVICE}:${VERSION}-arm64v8
+docker manifest push ${ORG}/${SERVICE}:latest
+
