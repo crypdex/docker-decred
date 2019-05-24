@@ -23,10 +23,7 @@ if [[ $(echo "$1" | cut -c1) = "-" ]] || [[ "$1" = "dcrd" ]]; then
 fi
 
 if [[ "$1" = "dcrd" ]] || [[ "$1" = "dcrwallet" ]] || [[ "$1" = "dcrctl" ]]; then
-  echo "$@"
   exec su-exec ${user} "$@"
 fi
-
-
 
 exec "$@"
